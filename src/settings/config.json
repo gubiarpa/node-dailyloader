@@ -1,0 +1,34 @@
+{
+    "fields": [
+        {
+            "name": "Province/State'",
+            "type": "string",
+            "dbName" : "Province_State"
+        },
+        {
+            "name": "Country/Region",
+            "type": "string",
+            "dbName" : "Country_Region"
+        },
+        {
+            "name": "Last Update",
+            "type": "string",
+            "dbName" : "Last_Update"
+        },
+        {
+            "name": "Confirmed",
+            "type": "int",
+            "dbName" : "Confirmed"
+        },
+        {
+            "name": "Deaths",
+            "type": "int",
+            "dbName" : "Deaths"
+        },
+        {
+            "name": "Recovered",
+            "type": "int",
+            "dbName" : "Recovered"
+        }
+    ]
+}
