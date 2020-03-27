@@ -11,15 +11,14 @@ const processFile = (config, content) => {
     let header = lines[0].trim();
     let headerValidation = ValidateHeader(config.definedFields, header);
 
-    console.log('•', headerValidation);
     if (!headerValidation.isValid){
-        return {
+        console.log({
             result: 'The fields in the upload file do not match the required fields.',
             matchDetail: headerValidation.matchArray,
             errorDetail: headerValidation.errorArray
-        };
+        });
     }
-    return;
+    
     /* IV. Read body */
     for (const i in lines) {
         if (i > 0) {
