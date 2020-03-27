@@ -1,53 +1,61 @@
 {
     "inputPath": "D:\\GitHub\\COVID-19\\csse_covid_19_data\\csse_covid_19_daily_reports\\",
     "outputPath": "D:\\GitHub\\daily-loader\\src\\settings\\",
-    "fields": [
+    "definedFields": [
         {
-            "name": "FIPS",
+            "name" : "FIPS",
+            "csvMatchName": ["FIPS"],
             "type": "string",
             "required": false,
-            "dbName" : "Province_State"
+            "dbName" : "FIPS"
         },
         {
-            "name": "Admin2",
+            "name" : "Admin2",
+            "csvMatchName": ["Admin2"],
             "type": "string",
             "required": false,
-            "dbName" : "Province_State"
+            "dbName" : "Admin2"
         },
         {
-            "name": "Province/State",
+            "name" : "Province/State",
+            "csvMatchName": ["Province/State", "Province_State"],
             "type": "string",
             "required": true,
             "dbName" : "Province_State"
         },
         {
-            "name": "Country/Region",
+            "name" : "Country/Region",
+            "csvMatchName": ["Country/Region", "Country_Region"],
             "type": "string",
             "required": true,
             "dbName" : "Country_Region"
         },
         {
-            "name": "Last Update",
+            "name" : "Last Update",
+            "csvMatchName": ["Last Update"],
             "type": "string",
             "required": true,
             "dbName" : "Last_Update"
         },
         {
-            "name": "Confirmed",
+            "name" : "Confirmed",
+            "csvMatchName": ["Confirmed"],
             "type": "int",
             "required": true,
             "dbName" : "Confirmed"
         },
         {
-            "name": "Deaths",
+            "name" : "Deaths",
+            "csvMatchName": ["Deaths"],
             "type": "int",
             "required": true,
             "dbName" : "Deaths"
         },
         {
-            "name": "Recovered",
-            "required": true,
+            "name" : "Recovered",
+            "csvMatchName": ["Recovered"],
             "type": "int",
+            "required": true,
             "dbName" : "Recovered"
         }
     ]
