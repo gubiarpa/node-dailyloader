@@ -1,20 +1,21 @@
-const readRaw = (data) => {
+const processFile = (config, content) => {
     /* I. Is not null file */
-    if ((data == null) || (data == '')) {
+    if ((content == null) || (content == '')) {
         return false;
     }
 
     /* II. Split by line */
-    const lines = data.split('\n');
+    const lines = content.split('\n');
 
     /* III. Valid header (ej. 'Province/State,Country/Region,Last Update,Confirmed' */
-    let header = lines[0]; header = header.trim();
-    let validHeader = ValidHeader(header);
-    if (!validHeader.isValid){
-        return {
-            error: 'The fields in the upload file do not match the required fields.',
-            detail: validHeader.errorArray
-        }   
+    let header = lines[0].trim();
+    let headerValidation = ValidateHeader(config.fields, header);
+    if (!headerValidation.isValid){
+        console.log({
+            result: 'The fields in the upload file do not match the required fields.',
+            detail: headerValidation.errorArray
+        });
+        return;
     }
 
     /* IV. Read body */
@@ -25,7 +26,7 @@ const readRaw = (data) => {
     }
 }
 
-const ValidHeader = (header) => {
+const ValidateHeader = (requiredFields, header) => {
     
     let isValid;
     let errorArray = [];
@@ -35,21 +36,14 @@ const ValidHeader = (header) => {
         // Split by comma (ej. ['Country', 'Province'])
         let fields = header.split(',');
         
-        /* Matching with each field */
-        let requiredFields = [
-            'Province/State',
-            'Country/Region',
-            'Last Update',
-            'Confirmed',
-            'Deaths',
-            'Recovered'
-        ];
-        
         for (const requiredfield of requiredFields) {
             // Does header line have the requiredField?
-            if (fields.find((e) => e == requiredfield) == null) errorArray.push(requiredfield);
+            if (
+                (requiredfield.required) &&
+                (fields.find((e) => e == requiredfield.name) == null)
+                ) errorArray.push(requiredfield.name);
         }
-
+    
         isValid = (errorArray.length == 0);
 
     } catch (error) {
@@ -63,4 +57,4 @@ const ValidHeader = (header) => {
     }
 }
 
-module.exports = readRaw;
+module.exports = processFile;

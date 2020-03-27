@@ -1,32 +1,52 @@
 {
+    "inputPath": "D:\\GitHub\\COVID-19\\csse_covid_19_data\\csse_covid_19_daily_reports\\",
+    "outputPath": "D:\\GitHub\\daily-loader\\src\\settings\\",
     "fields": [
         {
-            "name": "Province/State'",
+            "name": "FIPS",
             "type": "string",
+            "required": false,
+            "dbName" : "Province_State"
+        },
+        {
+            "name": "Admin2",
+            "type": "string",
+            "required": false,
+            "dbName" : "Province_State"
+        },
+        {
+            "name": "Province/State",
+            "type": "string",
+            "required": true,
             "dbName" : "Province_State"
         },
         {
             "name": "Country/Region",
             "type": "string",
+            "required": true,
             "dbName" : "Country_Region"
         },
         {
             "name": "Last Update",
             "type": "string",
+            "required": true,
             "dbName" : "Last_Update"
         },
         {
             "name": "Confirmed",
             "type": "int",
+            "required": true,
             "dbName" : "Confirmed"
         },
         {
             "name": "Deaths",
             "type": "int",
+            "required": true,
             "dbName" : "Deaths"
         },
         {
             "name": "Recovered",
+            "required": true,
             "type": "int",
             "dbName" : "Recovered"
         }

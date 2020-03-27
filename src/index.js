@@ -1,16 +1,20 @@
+const path = require('path');
 const fs = require('fs');
-const config = require('./config/config.json');
-const readRaw = require('./utils/fileManager');
+const config = require('./settings/config.json');
+const processFile = require('./utils/fileManager');
 
-try {console.log(process.argv); return;
+try {
 
     // Get file name from console (ej. 'D:\\gubiarpa\\file.txt')
-    let fileName = process.argv[2];
+    let fullName = path.join(config.inputPath, process.argv[2]);
 
     // Read contents of the file
-    fs.readFile(fileName, 'utf8', (err, content) => {
-        if (err) console.log(err);
-        console.log(readRaw(content));
+    fs.readFile(fullName, 'utf8', (err, content) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        processFile(config, content);
     });
 
 } catch (err) {
