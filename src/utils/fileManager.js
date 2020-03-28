@@ -26,7 +26,9 @@ const processFile = (config, content) => {
         if (i > 0) {
             var records = lines[i].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
             for (const i in records) {
-                records[i] = records[i].replace(/"/g, '');
+                // records[i] = records[i].replace(/"/g, '');
+                processBodyLine(config.outputPath, processedHeader.matchArray, records);
+                return; // escape ♫
             }
         }
     }
@@ -78,6 +80,19 @@ const processHeader = (definedHeader, header) => {
         matchArray,
         errorArray
     }
+}
+
+const processBodyLine = (outputPath, matchDetail, records) => {
+    
+    let parameters = []; // lista de parámetros
+
+    for (const i in records) {
+        // Column by column
+
+        let fieldName = matchDetail.find(e => e.index == i);
+        console.log({ columnName: fieldName, value: records[i].replace(/"/g, '') });
+    }
+
 }
 
 module.exports = processFile;
