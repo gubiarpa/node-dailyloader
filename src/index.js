@@ -5,6 +5,8 @@ const processFile = require('./utils/fileManager');
 
 try {
 
+    console.clear(); console.log('Analysis results:\n');
+
     // Get file name from console (ej. 'D:\\gubiarpa\\file.txt')
     let fullName = path.join(config.inputPath, process.argv[2]);
 

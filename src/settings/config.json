@@ -57,6 +57,13 @@
             "type": "int",
             "required": true,
             "dbName" : "Recovered"
+        },
+        {
+            "name" : "Active",
+            "csvMatchName": ["Active"],
+            "type": "int",
+            "required": true,
+            "dbName" : "Active"
         }
     ]
 }

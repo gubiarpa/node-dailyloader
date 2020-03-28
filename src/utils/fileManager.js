@@ -48,22 +48,19 @@ const processHeader = (definedHeader, header) => {
         for (const definedfield of definedHeader) {
             // Ej. definedField.csvMatchName = ['Province/State', 'Province_State', 'Prov_Stat']
             
-            if (definedfield.required == true) {
+            let founded = false, matchPosition = -1, i = 0;
+            
+            while ((!founded) && (i < definedfield.csvMatchName.length)) {
+                let matchItem = definedfield.csvMatchName[i++];
+                    // ej. matchItem = 'Province_State'
+                matchPosition = fields.findIndex((e) => e == matchItem);
+                founded = (matchPosition > -1);
+            }
 
-                let founded = false, matchPosition = -1, i = 0;
-
-                while ((!founded) && (i < definedfield.csvMatchName.length)) {
-                    let matchItem = definedfield.csvMatchName[i++];
-                        // ej. matchItem = 'Province_State'
-                    matchPosition = fields.findIndex((e) => e == matchItem);
-                    founded = (matchPosition > -1);
-                }
-
-                if (founded) {
-                    matchArray.push({ name: definedfield.name, index: matchPosition});
-                } else {
-                    errorArray.push({ name: definedfield.name });
-                }
+            if (founded) {
+                matchArray.push({ name: definedfield.name, index: matchPosition});
+            } else {
+                errorArray.push({ name: definedfield.name });
             }
         }
 
