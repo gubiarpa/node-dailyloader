@@ -1,7 +1,7 @@
 {
     "inputPath": "D:\\GitHub\\COVID-19\\csse_covid_19_data\\csse_covid_19_daily_reports\\",
     "outputPath": "D:\\GitHub\\daily-loader\\src\\settings\\",
-    "definedFields": [
+    "definedHeader": [
         {
             "name" : "FIPS",
             "csvMatchName": ["FIPS"],
@@ -32,7 +32,7 @@
         },
         {
             "name" : "Last Update",
-            "csvMatchName": ["Last Update"],
+            "csvMatchName": ["Last Update", "Last_Update"],
             "type": "string",
             "required": true,
             "dbName" : "Last_Update"

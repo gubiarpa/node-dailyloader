@@ -5,29 +5,34 @@ const processFile = (config, content) => {
     }
 
     /* II. Split by line */
-    const lines = content.split('\n');
+    // const lines = content.split('\n');
+    const lines = content.split(/\r?\n/);
 
     /* III. Valid header (ej. 'Province/State,Country/Region,Last Update,Confirmed' */
     let header = lines[0].trim();
-    let headerValidation = ValidateHeader(config.definedFields, header);
+    let processedHeader = processHeader(config.definedHeader, header);
 
-    if (!headerValidation.isValid){
+    if (!processedHeader.isValid){
         console.log({
             result: 'The fields in the upload file do not match the required fields.',
-            matchDetail: headerValidation.matchArray,
-            errorDetail: headerValidation.errorArray
+            matchDetail: processedHeader.matchArray,
+            errorDetail: processedHeader.errorArray
         });
+        return;
     }
-    
+
     /* IV. Read body */
     for (const i in lines) {
         if (i > 0) {
-            console.log('i:', i, lines[i]);
+            var records = lines[i].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
+            for (const i in records) {
+                records[i] = records[i].replace(/"/g, '');
+            }
         }
     }
 }
 
-const ValidateHeader = (definedFields, header) => {
+const processHeader = (definedHeader, header) => {
     // (array, string) => {...}
     
     let isValid = false; // ¿Cabecera válida?
@@ -38,7 +43,7 @@ const ValidateHeader = (definedFields, header) => {
 
         let fields = header.split(','); // fields from file
 
-        for (const definedfield of definedFields) {
+        for (const definedfield of definedHeader) {
             // Ej. definedField.csvMatchName = ['Province/State', 'Province_State', 'Prov_Stat']
             
             if (definedfield.required == true) {
@@ -55,7 +60,7 @@ const ValidateHeader = (definedFields, header) => {
                 if (founded) {
                     matchArray.push({ name: definedfield.name, index: matchPosition});
                 } else {
-                    errorArray.push(definedfield.name);
+                    errorArray.push({ name: definedfield.name });
                 }
             }
         }
