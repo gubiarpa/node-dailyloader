@@ -1,69 +1,68 @@
 {
-    "inputPath": "D:\\GitHub\\COVID-19\\csse_covid_19_data\\csse_covid_19_daily_reports\\",
-    "outputPath": "D:\\GitHub\\daily-loader\\src\\settings\\",
-    "definedHeader": [
-        {
-            "name" : "FIPS",
+    "inputPath": "C:\\Users\\ext-garredondo\\Proyectos\\Expertia\\Aplicaciones\\Servicio Inicial\\COVID-19\\csse_covid_19_data\\csse_covid_19_daily_reports\\",
+    "outputPath": "\\\\10.10.10.25\\Logs\\Others\\",
+    "definedHeader": [{
+            "name": "FIPS",
             "csvMatchName": ["FIPS"],
             "type": "string",
             "required": false,
-            "dbName" : "FIPS"
+            "dbName": "FIPS"
         },
         {
-            "name" : "Admin2",
+            "name": "Admin2",
             "csvMatchName": ["Admin2"],
             "type": "string",
             "required": false,
-            "dbName" : "Admin2"
+            "dbName": "Admin2"
         },
         {
-            "name" : "Province/State",
+            "name": "Province/State",
             "csvMatchName": ["Province/State", "Province_State"],
             "type": "string",
             "required": true,
-            "dbName" : "Province_State"
+            "dbName": "Province_State"
         },
         {
-            "name" : "Country/Region",
+            "name": "Country/Region",
             "csvMatchName": ["Country/Region", "Country_Region"],
             "type": "string",
             "required": true,
-            "dbName" : "Country_Region"
+            "dbName": "Country_Region"
         },
         {
-            "name" : "Last Update",
+            "name": "Last Update",
             "csvMatchName": ["Last Update", "Last_Update"],
             "type": "string",
             "required": true,
-            "dbName" : "Last_Update"
+            "dbName": "Last_Update"
         },
         {
-            "name" : "Confirmed",
+            "name": "Confirmed",
             "csvMatchName": ["Confirmed"],
             "type": "int",
             "required": true,
-            "dbName" : "Confirmed"
+            "dbName": "Confirmed"
         },
         {
-            "name" : "Deaths",
+            "name": "Deaths",
             "csvMatchName": ["Deaths"],
             "type": "int",
             "required": true,
-            "dbName" : "Deaths"
+            "dbName": "Deaths"
         },
         {
-            "name" : "Recovered",
+            "name": "Recovered",
             "csvMatchName": ["Recovered"],
             "type": "int",
             "required": true,
-            "dbName" : "Recovered"
+            "dbName": "Recovered"
         },
         {
-            "name" : "Active",
+            "name": "Active",
             "csvMatchName": ["Active"],
             "type": "int",
             "required": true,
-            "dbName" : "Active"
+            "dbName": "Active"
         }
     ]
 }

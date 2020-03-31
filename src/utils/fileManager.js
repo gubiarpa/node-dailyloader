@@ -12,7 +12,7 @@ const processFile = (config, content) => {
     let header = lines[0].trim();
     let processedHeader = processHeader(config.definedHeader, header);
 
-    if (!processedHeader.isValid){
+    if (!processedHeader.isValid) {
         console.log({
             result: 'The fields in the upload file do not match the required fields.',
             matchDetail: processedHeader.matchArray,
@@ -27,8 +27,9 @@ const processFile = (config, content) => {
             var records = lines[i].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
             for (const i in records) {
                 // records[i] = records[i].replace(/"/g, '');
+                console.log('i:', i);
                 processBodyLine(config.outputPath, processedHeader.matchArray, records);
-                return; // escape ♫
+                if (i >= 2) return; // escape ♫
             }
         }
     }
@@ -36,7 +37,7 @@ const processFile = (config, content) => {
 
 const processHeader = (definedHeader, header) => {
     // (array, string) => {...}
-    
+
     let isValid = false; // ¿Cabecera válida?
     let matchArray = []; // Lista campos con posiciones en CSV
     let errorArray = []; // Lista campos no encontrados
@@ -47,18 +48,20 @@ const processHeader = (definedHeader, header) => {
 
         for (const definedfield of definedHeader) {
             // Ej. definedField.csvMatchName = ['Province/State', 'Province_State', 'Prov_Stat']
-            
-            let founded = false, matchPosition = -1, i = 0;
-            
+
+            let founded = false,
+                matchPosition = -1,
+                i = 0;
+
             while ((!founded) && (i < definedfield.csvMatchName.length)) {
                 let matchItem = definedfield.csvMatchName[i++];
-                    // ej. matchItem = 'Province_State'
+                // ej. matchItem = 'Province_State'
                 matchPosition = fields.findIndex((e) => e == matchItem);
                 founded = (matchPosition > -1);
             }
 
             if (founded) {
-                matchArray.push({ name: definedfield.name, index: matchPosition});
+                matchArray.push({ name: definedfield.name, index: matchPosition });
             } else {
                 errorArray.push({ name: definedfield.name });
             }
@@ -80,7 +83,7 @@ const processHeader = (definedHeader, header) => {
 }
 
 const processBodyLine = (outputPath, matchDetail, records) => {
-    
+
     let parameters = []; // lista de parámetros
 
     for (const i in records) {
