@@ -1,3 +1,5 @@
+const executeQuery = require('./sqlManager')
+
 const processFile = (config, content) => {
     /* I. Is not null file */
     if ((content == null) || (content == '')) {
@@ -24,10 +26,10 @@ const processFile = (config, content) => {
     /* IV. Read body */
     for (const i in lines) {
         if (i > 0) {
-            var records = lines[i].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
-            for (const i in records) {
-                // records[i] = records[i].replace(/"/g, '');
-                processBodyLine(config.outputPath, processedHeader.matchArray, records);
+            var values = lines[i].split(/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/);
+            for (const i in values) {
+                // values[i] = values[i].replace(/"/g, '');
+                processBodyLine(config.outputPath, processedHeader.matchArray, values);
                 return; // escape ♫
             }
         }
@@ -58,7 +60,7 @@ const processHeader = (definedHeader, header) => {
             }
 
             if (founded) {
-                matchArray.push({ name: definedfield.name, index: matchPosition});
+                matchArray.push({ name: definedfield.name, dbName: definedfield.dbName, index: matchPosition});
             } else {
                 errorArray.push({ name: definedfield.name });
             }
@@ -79,17 +81,19 @@ const processHeader = (definedHeader, header) => {
     }
 }
 
-const processBodyLine = (outputPath, matchDetail, records) => {
+const processBodyLine = (outputPath, matchDetail, values) => {
     
     let parameters = []; // lista de parámetros
 
-    for (const i in records) {
+    for (const i in values) {
         // Column by column
 
-        let fieldName = matchDetail.find(e => e.index == i);
-        console.log({ columnName: fieldName, value: records[i].replace(/"/g, '') });
+        let fieldName = matchDetail.find(e => e.index == i); // ej. 'Province/State'
+        
+        if (fieldName != null) {
+            parameters.push({ columnName: fieldName.dbName, value: values[i].replace(/"/g, '') });
+        }
     }
-
 }
 
 module.exports = processFile;
