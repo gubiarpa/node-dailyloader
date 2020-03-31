@@ -64,5 +64,11 @@
             "required": true,
             "dbName": "Active"
         }
-    ]
+    ],
+    "dbConfig" : {
+        "user": "sa",
+        "password": "password",
+        "server": "localhost",
+        "database": "DBCovid19"
+    }
 }

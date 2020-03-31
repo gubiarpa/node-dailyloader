@@ -20,6 +20,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "moment": "^2.24.0",
     "mssql": "^6.2.0"
   }
 }
